@@ -468,20 +468,15 @@ async function loadDetails() {
   }
 
   document.getElementById("friendPhoto").src =
-   data.ultrasound_url || "./images/image-placeholder.jpeg";
-	document.getElementById("page1Text").textContent =
-  data.message || "";
+    data.ultrasound_url || "./images/image-placeholder.jpeg";
 
-document.getElementById("scanText").textContent =
-  data.message_2 || "";
+  document.getElementById("babyNameText").textContent =
+    data.baby_name || "";
 
-document.getElementById("babyNameText").textContent =
-  data.baby_name || "";
-
-document.getElementById("babyDateText").textContent =
-  data.due_date || "";
+  document.getElementById("babyDateText").textContent =
+    data.due_date || "";
 }
-
+	
 function setupScratch() {
   if (scratchSetupDone) return;
   scratchSetupDone = true;
@@ -507,7 +502,9 @@ scratchImage.onload = () => {
   canvas.style.background = "transparent";
 
   canvas.style.opacity = "1";
+  setTimeout(() => {
   document.getElementById("scratchOverlay").classList.add("scratch-ready");
+}, 100);
 };
 
 scratchImage.onerror = () => {
