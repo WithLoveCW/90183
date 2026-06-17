@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Baby Reveal</title>
+
+<style>
+@font-face {
+  font-family: 'JulesColossal';
+  src: url('./images/JulesColossal-Book.ttf') format('truetype');
+}
+	@font-face {
+  font-family: 'Abellaice';
+  src: url('./images/Abellaice.ttf') format('truetype');
+}
+	@font-face {
+  font-family: 'HearthStone';
+  src: url('./images/HearthStone.ttf') format('truetype');
+		
+}
+	@font-face {
+  font-family: 'shelline';
+  src: url('./images/shelline.ttf') format('truetype');
+}
+	@font-face {
+  font-family: 'AzoSansLight';
+  src: url('./images/AzoSans-Light.ttf') format('truetype');
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  font-family: Georgia, serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+
+  height: 100vh;
+  max-width: calc(100vh * (1080 / 1920));
+  aspect-ratio: 1080 / 1920;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+}
+
+.screen.active {
+  display: block;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* PAGE 1 SCRATCH */
+#scratchCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  display: block;
+  touch-action: none;
+}
+
+	.storybook-hidden {
+  opacity: 0;
+  z-index: 3;
+}
+
+.storybook-visible {
+  opacity: 1;
+  transition: opacity 1.2s ease;
+  z-index: 3;
+}
+	.scratch-overlay-hidden {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.scratch-overlay-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#page1Video {
+  z-index: 1;
+}
+	
+	#page1TapArea {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+	
+/* PAGE 3 PHOTO */
+.photo-wrap {
+  position: absolute;
+
+  left: 49%;
+  top: 32%;
+
+  width: 40%;
+  height: 17.5%;
+
+  transform: translateX(-50%);
+  z-index: 5;
+  overflow: hidden;
+
+  border-radius: 50%;
+  background: #000000;
+}
+
+#friendPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+	#page1 .bg {
+  z-index: 1;
+}
+
+#scratchCanvas {
+  z-index: 2;
+}
+	.baby-name {
+  position: absolute;
+  top: 60%;
+  width: 100%;
+  text-align: center;
+
+  font-family: 'shelline';
+  font-size: 52px;
+  color: #4b342b;
+
+  z-index: 6;
+}
+	.baby-date {
+		
+  position: absolute;
+  top: 69%;
+  width: 100%;
+  text-align: center;
+
+ font-family: 'AzoSansLight';
+  font-size: 15px;
+  letter-spacing: 5px;
+  color: #272423;
+  text-transform: uppercase;
+
+  z-index: 6;
+}
+	.gold-heart {
+  position: absolute;
+  left: 42%;
+  top: 64%;
+  width: 42px;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  display: block;
+}
+	.page1-text {
+  position: absolute;
+  bottom: 76%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 72%;
+  text-align: center;
+
+  font-family: 'JulesColossal';
+  font-size: 27px;
+  line-height: 1.25;
+  color: #4b342b;
+
+  z-index: 6;
+}
+.intro-small{
+    position:absolute;
+    top:73%;
+    width:100%;
+    text-align:center;
+
+    font-family:'JulesColossal';
+    font-size:16px;
+    letter-spacing:1px;
+
+    color:#d7bf79;
+
+    text-shadow:
+        0 1px 2px rgba(0,0,0,0.45),
+        0 0 10px rgba(0,0,0,0.2);
+
+    z-index:15;
+}
+	.intro-large{
+    position:absolute;
+    top:76%;
+    width:100%;
+    text-align:center;
+
+    font-family:'JulesColossal';
+    font-size:30px;
+    color:#d7bf79;
+
+    text-shadow:
+        0 1px 2px rgba(0,0,0,0.45),
+        0 0 10px rgba(0,0,0,0.2);
+
+    z-index:15;
+}
+.scan-text {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 68%;
+  max-width: 68%;
+
+  text-align: center;
+
+  font-family: 'JulesColossal';
+  font-size: 22px;
+  line-height: 1.4;
+  color: #4b342b;
+
+  z-index: 10;
+}
+	.video-caption {
+    position: absolute;
+
+    left: 50%;
+    bottom: 29%;
+
+    transform: translateX(-50%);
+
+    width: 80%;
+
+    text-align: center;
+
+    font-family: 'JulesColossal';
+    font-size: 24px;
+    color: #522c03;
+
+    text-shadow:
+        0 1px 2px rgba(0,0,0,0.45);
+
+    z-index: 10;
+
+    opacity: 0;
+
+    transition: opacity .8s ease;
+}
+	/* PAGE 3 FADE */
+.fade-in {
+  animation: fadeIn 1.2s ease forwards;
+}
+
+.scratch-page-fade {
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+.text-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: textReveal 1s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.25s;
+}
+
+.delay-2 {
+  animation-delay: 0.45s;
+}
+
+.delay-3 {
+  animation-delay: 0.65s;
+}
+
+	.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+	
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes textReveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+	.reveal-bg {
+  opacity: 0;
+}
+
+.scratch-ready .reveal-bg {
+  opacity: 1;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <!-- PAGE 1: scratch card, revealing Page2 image underneath -->
+<section class="screen active" id="page1">
+
+<video id="page1Video" class="bg" playsinline preload="auto">
+    <source src="./images/page1-video.mp4" type="video/mp4">
+</video>
+	<video id="storybookVideo" class="bg storybook-hidden" playsinline preload="auto">
+    <source src="./images/storybook-video.mp4" type="video/mp4">
+</video>
+	<div id="videoCaption" class="video-caption">
+    Every story begins <br/> with love...
+</div>
+
+<div class="intro-small" id="introSmall">
+    We have a beautiful secret...
+</div>
+
+<div class="intro-large" id="introLarge">
+    Tap the cover to begin <br /> the story
+</div>
+<div id="scratchOverlay" class="scratch-overlay-hidden">
+
+  <img class="bg reveal-bg" src="./images/page4.jpeg" alt="">
+
+  <canvas id="scratchCanvas"></canvas>
+
+</div>
+<div id="page1TapArea"></div>
+
+</section>
+
+
+	
+<!-- PAGE 5: ultrasound reveal page -->
+  <section class="screen" id="page5">
+    <img class="bg" src="./images/page5.jpeg" alt="">
+
+<div class="scan-text" id="scanText"></div>
+
+<div class="photo-wrap">
+  <img id="friendPhoto" src="./images/image-placeholder.jpeg" alt="">
+</div>
+
+<div class="baby-name text-reveal delay-2" id="babyNameText"></div>
+
+<img class="gold-heart text-reveal delay-3"
+     src="./images/gold-heart.png"
+     alt="">
+
+<div class="baby-date text-reveal delay-3" id="babyDateText"></div>
+  </section>
+
+</div>
+
+	<audio id="bgMusic" preload="auto" loop>
+  <source src="./sounds/musicdoggy_Valentines-Day_main-01_full.mp3" type="audio/mpeg">
+</audio>
+<audio id="winSound" preload="auto">
+  <source src="./sounds/win.mp3" type="audio/mpeg">
+</audio>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script>
+const SUPABASE_URL = "https://bfzhvulpymbqzwxorzih.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_aLj5jota1g3icfvF7MROIQ_b4-yKlo3";
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let scratchedEnough = false;
+let scratchSetupDone = false;
+
+function goToPage(pageNumber) {
+
+  const newPage = document.getElementById(`page${pageNumber}`);
+
+  newPage.classList.add("active");
+  newPage.classList.add("fade-in");
+
+  setTimeout(() => {
+    document.querySelectorAll(".screen").forEach(screen => {
+      if (screen !== newPage) {
+        screen.classList.remove("active");
+        screen.classList.remove("fade-in");
+      }
+    });
+  }, 1200);
+
+}
+
+
+async function loadDetails() {
+  const params = new URLSearchParams(window.location.search);
+  const revealId = params.get("id");
+
+  if (!revealId) return;
+
+  const { data, error } = await supabaseClient
+    .from("gender-design1")
+    .select("*")
+    .eq("id", revealId)
+    .single();
+
+  if (error || !data) {
+    console.error("Details load error:", error);
+    return;
+  }
+
+  document.getElementById("friendPhoto").src =
+   data.ultrasound_url || "./images/image-placeholder.jpeg";
+	document.getElementById("page1Text").textContent =
+  data.message || "";
+
+document.getElementById("scanText").textContent =
+  data.message_2 || "";
+
+document.getElementById("babyNameText").textContent =
+  data.baby_name || "";
+
+document.getElementById("babyDateText").textContent =
+  data.due_date || "";
+}
+
+function setupScratch() {
+  if (scratchSetupDone) return;
+  scratchSetupDone = true;
+
+  const canvas = document.getElementById("scratchCanvas");
+  const ctx = canvas.getContext("2d");
+  const app = document.querySelector(".app");
+  const rect = app.getBoundingClientRect();
+
+  canvas.width = rect.width * window.devicePixelRatio;
+  canvas.height = rect.height * window.devicePixelRatio;
+  canvas.style.width = rect.width + "px";
+  canvas.style.height = rect.height + "px";
+
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+ const scratchImage = new Image();
+canvas.style.opacity = "0";
+
+scratchImage.onload = () => {
+  ctx.drawImage(scratchImage, 0, 0, rect.width, rect.height);
+  ctx.globalCompositeOperation = "destination-out";
+  canvas.style.background = "transparent";
+
+  canvas.style.opacity = "1";
+  document.getElementById("scratchOverlay").classList.add("scratch-ready");
+};
+
+scratchImage.onerror = () => {
+  console.error("page1.jpeg did not load. Check filename exactly.");
+  canvas.style.opacity = "1";
+};
+
+scratchImage.src = "./images/page3.jpeg";
+  let isDrawing = false;
+
+  const heartArea = {
+    left: rect.width * 0.13,
+    top: rect.height * 0.285,
+    width: rect.width * 0.74,
+    height: rect.height * 0.385
+  };
+
+  const scratchedCells = new Set();
+  const cellSize = 16;
+
+  const totalCells =
+    Math.floor(heartArea.width / cellSize) *
+    Math.floor(heartArea.height / cellSize);
+
+  function scratch(e) {
+    if (!isDrawing || scratchedEnough) return;
+
+    const touch = e.touches ? e.touches[0] : e;
+    const canvasRect = canvas.getBoundingClientRect();
+
+    const x = touch.clientX - canvasRect.left;
+    const y = touch.clientY - canvasRect.top;
+
+    ctx.beginPath();
+    ctx.arc(x, y, 18, 0, Math.PI * 2);
+    ctx.fill();
+
+    checkScratchAmount(x, y);
+  }
+
+  function checkScratchAmount(x, y) {
+    const insideHeart =
+      x >= heartArea.left &&
+      x <= heartArea.left + heartArea.width &&
+      y >= heartArea.top &&
+      y <= heartArea.top + heartArea.height;
+
+    if (!insideHeart) return;
+
+    const cellX = Math.floor((x - heartArea.left) / cellSize);
+    const cellY = Math.floor((y - heartArea.top) / cellSize);
+
+    scratchedCells.add(`${cellX}-${cellY}`);
+
+    const percent = scratchedCells.size / totalCells;
+
+    if (percent > 0.28) {
+      scratchedEnough = true;
+      canvas.style.pointerEvents = "none";
+      bigConfetti();
+
+      setTimeout(() => {
+       goToPage(5);
+      }, 3000);
+    }
+  }
+
+  canvas.addEventListener("mousedown", () => isDrawing = true);
+  canvas.addEventListener("mouseup", () => isDrawing = false);
+  canvas.addEventListener("mouseleave", () => isDrawing = false);
+  canvas.addEventListener("mousemove", e => {
+  requestAnimationFrame(() => scratch(e));
+});
+
+  canvas.addEventListener("touchstart", e => {
+    isDrawing = true;
+    scratch(e);
+  });
+
+ canvas.addEventListener("touchmove", e => {
+  e.preventDefault();
+  requestAnimationFrame(() => scratch(e));
+}, { passive: false });
+
+  canvas.addEventListener("touchend", () => isDrawing = false);
+}
+
+function bigConfetti() {
+  const sound = document.getElementById("winSound");
+
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play().catch(() => {});
+  }
+
+  confetti({
+    particleCount: 220,
+    spread: 110,
+    origin: { y: 0.65 },
+    colors: ["#D4AF37", "#BFA14A", "#7A8B45", "#9AAA63", "#FFFFFF", "#F7F4EA"]
+  });
+
+  setTimeout(() => {
+    confetti({
+      particleCount: 180,
+      spread: 120,
+      origin: { x: 0.2, y: 0.65 },
+     colors: ["#D4AF37", "#BFA14A", "#7A8B45", "#9AAA63", "#FFFFFF", "#F7F4EA"]
+    });
+
+    confetti({
+      particleCount: 180,
+      spread: 120,
+      origin: { x: 0.8, y: 0.65 },
+    colors: ["#D4AF37", "#BFA14A", "#7A8B45", "#9AAA63", "#FFFFFF", "#F7F4EA"]
+    });
+  }, 300);
+}
+
+window.addEventListener("load", () => {
+  loadDetails();
+
+  const page1TapArea = document.getElementById("page1TapArea");
+  const page1Video = document.getElementById("page1Video");
+
+  page1TapArea.addEventListener("click", () => {
+    page1TapArea.style.pointerEvents = "none";
+	  document.getElementById("introSmall").classList.add("fade-out");
+document.getElementById("introLarge").classList.add("fade-out");
+	  const bgMusic = document.getElementById("bgMusic");
+
+bgMusic.volume = 0.35;
+
+bgMusic.play().catch(error => {
+    console.log("Background music couldn't start:", error);
+});
+
+   page1Video.currentTime = 0;
+
+page1Video.play().catch(error => {
+  console.error("Page 1 video play error:", error);
+});
+	page1Video.addEventListener("ended", () => {
+
+  const storybookVideo = document.getElementById("storybookVideo");
+
+  storybookVideo.classList.remove("storybook-hidden");
+  storybookVideo.classList.add("storybook-visible");
+
+  storybookVideo.currentTime = 0;
+
+  storybookVideo.play().catch(error => {
+    console.error("Storybook video play error:", error);
+  });
+		document.getElementById("videoCaption").style.opacity = "1";
+		const captionFadeTimer = setInterval(() => {
+  if (storybookVideo.duration - storybookVideo.currentTime <= 1.5) {
+    document.getElementById("videoCaption").style.opacity = "0";
+    clearInterval(captionFadeTimer);
+  }
+}, 100);
+storybookVideo.addEventListener("ended", () => {
+
+	document.getElementById("videoCaption").style.opacity = "0";
+    const scratchOverlay = document.getElementById("scratchOverlay");
+
+    scratchOverlay.classList.remove("scratch-overlay-hidden");
+    scratchOverlay.classList.add("scratch-overlay-visible");
+
+    storybookVideo.style.transition = "opacity 0.8s ease";
+    storybookVideo.style.opacity = "0";
+
+    setupScratch();
+
+}, { once: true });
+
+
+		
+
+}, { once: true });
+  });
+});
+</script>
+</body>
+</html>
