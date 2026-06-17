@@ -186,7 +186,7 @@
       </p>
 
       <form id="revealForm">
-        <label for="babyName">Baby name</label>
+       <label for="babyName">Name to appear on the reveal</label>
         <input
           id="babyName"
           name="babyName"
@@ -195,7 +195,9 @@
           required
         />
 
-        <div class="hint">Example: Baby Smithson</div>
+        <div class="hint">
+  Examples: Baby Smith, Baby Olivia or Our Little One
+</div>
 
         <label for="dueDate">Due date</label>
         <input
@@ -354,10 +356,7 @@
       document.getElementById("dueDate").value =
         data.due_date || "";
 
-      document.getElementById("message").value =
-        data.message || "";
-		document.getElementById("message2").value =
-  data.message_2 || "";
+    
     }
 
     form.addEventListener("submit", async function(event) {
@@ -369,11 +368,7 @@
       const dueDate =
         document.getElementById("dueDate").value.trim();
 
-      const message =
-        document.getElementById("message").value.trim();
-		
-		const message2 =
-  document.getElementById("message2").value.trim();
+     
 
       const ultrasoundFile =
         document.getElementById("ultrasoundImage").files[0];
@@ -412,9 +407,8 @@
       if (editToken && editingRevealId) {
      const updateData = {
   baby_name: babyName,
-  due_date: dueDate,
-  message: message,
-  message_2: message2
+  due_date: dueDate
+};
 };
 
         if (ultrasoundUrl) {
@@ -481,8 +475,6 @@
   id: id,
   baby_name: babyName,
   due_date: dueDate,
-  message: message,
-  message_2: message2,
   ultrasound_url: ultrasoundUrl,
   edit_token: newEditToken,
   locked_after: lockedAfter.toISOString()
