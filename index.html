@@ -502,9 +502,11 @@ scratchImage.onload = () => {
   canvas.style.background = "transparent";
 
   canvas.style.opacity = "1";
-  setTimeout(() => {
-  document.getElementById("scratchOverlay").classList.add("scratch-ready");
-}, 100);
+
+const scratchOverlay = document.getElementById("scratchOverlay");
+scratchOverlay.classList.remove("scratch-overlay-hidden");
+scratchOverlay.classList.add("scratch-overlay-visible");
+scratchOverlay.classList.add("scratch-ready");
 };
 
 scratchImage.onerror = () => {
@@ -668,9 +670,7 @@ page1Video.play().catch(error => {
   page1Video.style.display = "none";
   document.getElementById("videoCaption").style.opacity = "1";
 }, { once: true });
-		storybookVideo.addEventListener("playing", () => {
-  page1Video.style.display = "none";
-}, { once: true });
+	
 	
 		const captionFadeTimer = setInterval(() => {
   if (storybookVideo.duration - storybookVideo.currentTime <= 1.5) {
@@ -685,10 +685,7 @@ storybookVideo.addEventListener("ended", () => {
 
     setupScratch();
 
-setTimeout(() => {
-  scratchOverlay.classList.remove("scratch-overlay-hidden");
-  scratchOverlay.classList.add("scratch-overlay-visible");
-}, 150);
+
 
 storybookVideo.style.transition = "opacity 0.8s ease";
 storybookVideo.style.opacity = "0";
