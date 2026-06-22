@@ -362,6 +362,7 @@ top: 69%;
   <!-- PAGE 1: scratch card, revealing Page2 image underneath -->
 <section class="screen active" id="page1">
 
+	<img id="page1Cover" class="bg" src="./images/page1.jpeg" alt="">
 <video id="page1Video" class="bg" playsinline preload="auto">
     <source src="./images/page1-video.mp4" type="video/mp4">
 </video>
@@ -633,6 +634,7 @@ window.addEventListener("load", () => {
 
   page1TapArea.addEventListener("click", () => {
     page1TapArea.style.pointerEvents = "none";
+	  document.getElementById("page1Cover").style.display = "none";
 	  document.getElementById("introSmall").classList.add("fade-out");
 document.getElementById("introLarge").classList.add("fade-out");
 	  const bgMusic = document.getElementById("bgMusic");
