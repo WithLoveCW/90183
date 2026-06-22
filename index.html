@@ -382,7 +382,7 @@ top: 69%;
 </div>
 <div id="scratchOverlay" class="scratch-overlay-hidden">
 
-  <img class="bg reveal-bg" src="./images/page4.jpeg" alt="">
+  <img class="bg" src="./images/page4.jpeg" alt="">
 
   <canvas id="scratchCanvas"></canvas>
 
@@ -634,7 +634,6 @@ window.addEventListener("load", () => {
 
   page1TapArea.addEventListener("click", () => {
     page1TapArea.style.pointerEvents = "none";
-	  document.getElementById("page1Cover").style.display = "none";
 	  document.getElementById("introSmall").classList.add("fade-out");
 document.getElementById("introLarge").classList.add("fade-out");
 	  const bgMusic = document.getElementById("bgMusic");
@@ -650,8 +649,11 @@ bgMusic.play().catch(error => {
 page1Video.play().catch(error => {
   console.error("Page 1 video play error:", error);
 });
+	  page1Video.addEventListener("playing", () => {
+  document.getElementById("page1Cover").style.display = "none";
+}, { once: true });
 	page1Video.addEventListener("ended", () => {
-		page1Video.style.display = "none";
+	
 
   const storybookVideo = document.getElementById("storybookVideo");
 
@@ -663,6 +665,9 @@ page1Video.play().catch(error => {
   storybookVideo.play().catch(error => {
     console.error("Storybook video play error:", error);
   });
+		storybookVideo.addEventListener("playing", () => {
+  page1Video.style.display = "none";
+}, { once: true });
 		document.getElementById("videoCaption").style.opacity = "1";
 		const captionFadeTimer = setInterval(() => {
   if (storybookVideo.duration - storybookVideo.currentTime <= 1.5) {
