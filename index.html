@@ -155,7 +155,7 @@ body {
 }
 .baby-name {
   position: absolute;
-  top: 60%;
+  top: 56.5%;
   width: 100%;
   text-align: center;
 
@@ -184,7 +184,7 @@ body {
 	.gold-heart {
   position: absolute;
   left: 50%;
-top: 62%;
+top: 69%;
   width: 42px;
   height: auto;
   transform: translate(-50%, -50%);
@@ -649,6 +649,7 @@ page1Video.play().catch(error => {
   console.error("Page 1 video play error:", error);
 });
 	page1Video.addEventListener("ended", () => {
+		page1Video.style.display = "none";
 
   const storybookVideo = document.getElementById("storybookVideo");
 
