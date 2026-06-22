@@ -363,7 +363,7 @@ top: 69%;
 <section class="screen active" id="page1">
 
 	<img id="page1Cover" class="bg" src="./images/page1.jpeg" alt="">
-<video id="page1Video" class="bg" playsinline preload="auto">
+<video id="page1Video" class="bg" playsinline preload="auto" poster="./images/page1.jpeg">
     <source src="./images/page1-video.mp4" type="video/mp4">
 </video>
 	<video id="storybookVideo" class="bg storybook-hidden" playsinline preload="auto">
@@ -666,8 +666,12 @@ page1Video.play().catch(error => {
   });
 		storybookVideo.addEventListener("playing", () => {
   page1Video.style.display = "none";
+  document.getElementById("videoCaption").style.opacity = "1";
 }, { once: true });
-		document.getElementById("videoCaption").style.opacity = "1";
+		storybookVideo.addEventListener("playing", () => {
+  page1Video.style.display = "none";
+}, { once: true });
+	
 		const captionFadeTimer = setInterval(() => {
   if (storybookVideo.duration - storybookVideo.currentTime <= 1.5) {
     document.getElementById("videoCaption").style.opacity = "0";
@@ -679,14 +683,15 @@ storybookVideo.addEventListener("ended", () => {
 	document.getElementById("videoCaption").style.opacity = "0";
     const scratchOverlay = document.getElementById("scratchOverlay");
 
-    scratchOverlay.classList.remove("scratch-overlay-hidden");
-    scratchOverlay.classList.add("scratch-overlay-visible");
-
-    storybookVideo.style.transition = "opacity 0.8s ease";
-    storybookVideo.style.opacity = "0";
-
     setupScratch();
 
+setTimeout(() => {
+  scratchOverlay.classList.remove("scratch-overlay-hidden");
+  scratchOverlay.classList.add("scratch-overlay-visible");
+}, 150);
+
+storybookVideo.style.transition = "opacity 0.8s ease";
+storybookVideo.style.opacity = "0";
 }, { once: true });
 
 
