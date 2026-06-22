@@ -405,9 +405,7 @@ top: 69%;
 
 <div class="baby-name text-reveal delay-2" id="babyNameText"></div>
 
-<img class="gold-heart text-reveal delay-3"
-     src="./images/gold-heart.png"
-     alt="">
+
 
 <div class="baby-date text-reveal delay-3" id="babyDateText"></div>
   </section>
@@ -568,9 +566,10 @@ scratchImage.src = "./images/page3.jpeg";
       canvas.style.pointerEvents = "none";
       bigConfetti();
 
-      setTimeout(() => {
-       goToPage(5);
-      }, 3000);
+  setTimeout(() => {
+  document.getElementById("scratchOverlay").style.display = "none";
+  goToPage(5);
+}, 3000);
     }
   }
 
